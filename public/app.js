@@ -1,4 +1,4 @@
-angular.module('ContactApp',['appCtrl'])
+angular.module('ContactApp',['appCtrl', 'reverseDirective'])
 	.config(function($httpProvider){
 		
 })

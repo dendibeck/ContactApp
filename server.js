@@ -4,8 +4,8 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var mongojs = require('mongojs');
 var config = require('./config');
-// var contact = require('./models/contact')
-var db = mongojs('contactlist', ['contactlist']);
+// var contacts = require('./models/contacts')
+var db = mongojs('contactlist', ['contacts']);
 
 
 
@@ -23,14 +23,14 @@ mongoose.connect(config.database, function(err){
 
 app.get('/contactlist', function(req, res){
 	console.log("I receive a GET request");
-	db.contactlist.find(function(err, docs){
+	db.contacts.find(function(err, docs){
 		res.json(docs);
 	});
 });
 
 app.post('/contactlist', function(req, res){
 	console.log(req.body);
-	db.contactlist.insert(req.body, function(err, doc){
+	db.contacts.insert(req.body, function(err, doc){
 		res.json(doc);
 	})
 });
@@ -38,7 +38,7 @@ app.post('/contactlist', function(req, res){
 app.delete('/contactlist/:id', function(req, res){
 	var id = req.params.id;
 	console.log(id);
-	db.contactlist.remove({_id: mongojs.ObjectId(id)}, function(err, doc){
+	db.contacts.remove({_id: mongojs.ObjectId(id)}, function(err, doc){
 		res.json(doc);
 	});
 });
@@ -46,7 +46,7 @@ app.delete('/contactlist/:id', function(req, res){
 app.get('/contactlist/:id', function(req, res){
 	var id=req.params.id;
 	console.log(id);
-	db.contactlist.findOne({_id: mongojs.ObjectId(id)}, function(err, doc){
+	db.contacts.findOne({_id: mongojs.ObjectId(id)}, function(err, doc){
 		res.json(doc);
 	});
 });
@@ -54,10 +54,10 @@ app.get('/contactlist/:id', function(req, res){
 app.put('/contactlist/:id', function(req, res){
 	var id = req.params.id;
 	console.log(req.body.name);
-	db.contactlist.findAndModify({
+	db.contacts.findAndModify({
 		query: {_id: mongojs.ObjectId(id)},
 		update: {$set: {name: req.body.name, 
-						position: req.body.position,
+						email: req.body.email,
 						number: req.body.number
 					}},
 		new: true}, function(err, doc){

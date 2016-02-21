@@ -6,7 +6,7 @@ angular.module('appCtrl',[])
 	var refresh = function(){
 	$http.get('/contactlist').success(function(response){
 		console.log("I got the data I requested");
-		$scope.contactlist = response;
+		$scope.contacts = response;
 		$scope.contact = "";
 	});
 };
